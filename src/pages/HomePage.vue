@@ -1,19 +1,23 @@
 <script setup>
-import { onMounted } from "vue";
+import { computed, onMounted } from "vue";
 import { artworksService } from "../services/ArtworksService";
 import Pop from "../utils/Pop";
+import { logger } from "../utils/Logger";
+import { AppState } from "../AppState";
+
+const artworks = computed(() => AppState.artworks)
 
 
 onMounted(() => {
   getArtwork()
 })
 
-async function getArtwork(){
+async function getArtwork() {
   try {
-await artworksService.getArtwork()
+    await artworksService.getArtwork()
   }
-  catch (error){
-    console.error(error);
+  catch (error) {
+    logger.error(error)
     Pop.error('Could not get artwork', error);
   }
 }
@@ -21,7 +25,10 @@ await artworksService.getArtwork()
 </script>
 
 <template>
-  Images go here
+  <section v-for="artwork in artworks" :key="artwork.id" class="container-fluid">
+    Art Here
+    <ArtworkCard :artwork="artwork" />
+  </section>
 </template>
 
 <style scoped lang="scss"></style>
