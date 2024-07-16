@@ -4,6 +4,7 @@ import { artworksService } from "../services/ArtworksService";
 import Pop from "../utils/Pop";
 import { logger } from "../utils/Logger";
 import { AppState } from "../AppState";
+import ArtworkCard from "../components/ArtworkCard.vue";
 
 const artworks = computed(() => AppState.artworks)
 
@@ -25,10 +26,17 @@ async function getArtwork() {
 </script>
 
 <template>
-  <section v-for="artwork in artworks" :key="artwork.id" class="container-fluid">
-    Art Here
-    <ArtworkCard :artwork="artwork" />
+  <section class="container-fluid">
+    <div class="art-box">
+      <ArtworkCard v-for="artwork in artworks" :key="artwork.id" :artwork="artwork" />
+    </div>
   </section>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.art-box {
+  columns: 18rem;
+  gap: 1rem;
+  counter-reset: grid;
+}
+</style>
