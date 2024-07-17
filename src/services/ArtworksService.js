@@ -12,6 +12,9 @@ class ArtworksService {
     AppState.artworks = artworks
   }
 
+  // async admireArtwork() {
+  //   const response = await api.put(`api/artworks`)
+  // }
 
 }
 
